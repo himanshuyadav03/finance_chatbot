@@ -1,0 +1,70 @@
+{
+  "lag_definition": {
+    "lag_0": "same source week",
+    "lag_1": "1 week after source week",
+    "lag_2": "2 weeks after source week",
+    "lag_3": "3 weeks after source week",
+    "lag_4": "4 weeks after source week",
+    "lag_5": "5 weeks after source week",
+    "lag_6": "6 weeks after source week",
+    "lag_7": "7 weeks after source week",
+    "lag_8": "8 weeks after source week",
+    "lag_9": "9 weeks after source week",
+    "lag_10": "10 weeks after source week"
+  },
+
+  "lag_value_format": {
+    "description": "Lag values are stored as decimals.",
+    "examples": {
+      "0.15": "15%",
+      "0.05": "5%",
+      "1.00": "100%"
+    }
+  },
+
+  "booking_to_invoice": {
+    "description": "Booking-to-invoice linearity represents how booking amount converts into invoices over future weeks.",
+
+    "same_week_invoice_percentage": "lag_0",
+
+    "invoice_within_1_week": "lag_0 + lag_1",
+
+    "invoice_within_3_weeks": "lag_0 + lag_1 + lag_2 + lag_3",
+
+    "invoice_within_5_weeks": "lag_0 + lag_1 + lag_2 + lag_3 + lag_4 + lag_5",
+
+    "invoice_within_10_weeks": "lag_0 + lag_1 + lag_2 + lag_3 + lag_4 + lag_5 + lag_6 + lag_7 + lag_8 + lag_9 + lag_10"
+  },
+
+  "invoice_to_cash": {
+    "description": "Invoice-to-cash linearity represents how invoice amount converts into cash collection over future weeks.",
+
+    "same_week_collection_percentage": "lag_0",
+
+    "collection_within_1_week": "lag_0 + lag_1",
+
+    "collection_within_3_weeks": "lag_0 + lag_1 + lag_2 + lag_3",
+
+    "collection_within_5_weeks": "lag_0 + lag_1 + lag_2 + lag_3 + lag_4 + lag_5",
+
+    "collection_within_10_weeks": "lag_0 + lag_1 + lag_2 + lag_3 + lag_4 + lag_5 + lag_6 + lag_7 + lag_8 + lag_9 + lag_10"
+  },
+
+  "forecast_rules": {
+    "forecasted_invoice": "Forecasted invoice is the final weekly result generated after applying booking-to-invoice waterfall logic.",
+
+    "forecasted_collection": "Forecasted collection is the final weekly result generated after applying invoice-to-cash waterfall logic."
+  },
+
+  "actual_vs_forecast": {
+    "invoice": {
+      "actual_column": "actual_booking_invoices_collection.invoice_amount",
+      "forecast_column": "booking_to_invoice_forecasting.forecasted_invoice"
+    },
+
+    "collection": {
+      "actual_column": "actual_booking_invoices_collection.collection_amount",
+      "forecast_column": "invoice_to_cash_forecasting.forecasted_collection"
+    }
+  }
+}

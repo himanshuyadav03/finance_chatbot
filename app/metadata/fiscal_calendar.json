@@ -1,0 +1,96 @@
+{
+  "calendar_type": "4-4-5 fiscal calendar",
+
+  "weeks_per_year": 52,
+  "quarters_per_year": 4,
+  "weeks_per_quarter": 13,
+
+  "month_pattern": [4, 4, 5],
+
+  "quarters": {
+    "Q1": {
+      "start_week": 1,
+      "end_week": 13,
+      "months": {
+        "M1": {
+          "start_week": 1,
+          "end_week": 4
+        },
+        "M2": {
+          "start_week": 5,
+          "end_week": 8
+        },
+        "M3": {
+          "start_week": 9,
+          "end_week": 13
+        }
+      }
+    },
+
+    "Q2": {
+      "start_week": 14,
+      "end_week": 26,
+      "months": {
+        "M4": {
+          "start_week": 14,
+          "end_week": 17
+        },
+        "M5": {
+          "start_week": 18,
+          "end_week": 21
+        },
+        "M6": {
+          "start_week": 22,
+          "end_week": 26
+        }
+      }
+    },
+
+    "Q3": {
+      "start_week": 27,
+      "end_week": 39,
+      "months": {
+        "M7": {
+          "start_week": 27,
+          "end_week": 30
+        },
+        "M8": {
+          "start_week": 31,
+          "end_week": 34
+        },
+        "M9": {
+          "start_week": 35,
+          "end_week": 39
+        }
+      }
+    },
+
+    "Q4": {
+      "start_week": 40,
+      "end_week": 52,
+      "months": {
+        "M10": {
+          "start_week": 40,
+          "end_week": 43
+        },
+        "M11": {
+          "start_week": 44,
+          "end_week": 47
+        },
+        "M12": {
+          "start_week": 48,
+          "end_week": 52
+        }
+      }
+    }
+  },
+
+  "week_format": "YYYYWkNN",
+
+  "examples": {
+    "2025Q1": "2025Wk01 through 2025Wk13",
+    "2025Q2": "2025Wk14 through 2025Wk26",
+    "2025Q3": "2025Wk27 through 2025Wk39",
+    "2025Q4": "2025Wk40 through 2025Wk52"
+  }
+}

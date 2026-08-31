@@ -1,0 +1,33 @@
+{
+  "actual_booking_invoices_collection": {
+    "description": "Contains actual weekly booking, invoice, and collection amounts.",
+    "type": "actual",
+    "use_for": [
+      "actual booking questions",
+      "actual invoice questions",
+      "actual collection questions",
+      "actual booking vs invoice comparison",
+      "actual invoice vs collection comparison"
+    ]
+  },
+
+  "booking_to_invoice_forecasting": {
+    "description": "Contains booking-to-invoice lag linearity, booking amount, and weekly forecasted invoice amount.",
+    "type": "forecast",
+    "use_for": [
+      "forecasted invoice questions",
+      "booking-to-invoice linearity questions",
+      "booking-to-invoice lag questions"
+    ]
+  },
+
+  "invoice_to_cash_forecasting": {
+    "description": "Contains invoice-to-cash lag linearity, invoice amount, and weekly forecasted collection amount.",
+    "type": "forecast",
+    "use_for": [
+      "forecasted collection questions",
+      "invoice-to-cash linearity questions",
+      "invoice-to-cash lag questions"
+    ]
+  }
+}

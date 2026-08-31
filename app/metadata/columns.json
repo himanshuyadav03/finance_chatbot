@@ -1,0 +1,190 @@
+{
+  "actual_booking_invoices_collection": {
+    "booking_week": {
+      "description": "Fiscal week when booking occurred",
+      "type": "week"
+    },
+
+    "booking_amount": {
+      "description": "Actual booking amount for the week",
+      "type": "amount",
+      "aggregation": "SUM",
+      "synonyms": [
+        "booking",
+        "booking value",
+        "booked amount",
+        "actual booking"
+      ]
+    },
+
+    "invoice_week": {
+      "description": "Fiscal week when invoice occurred",
+      "type": "week"
+    },
+
+    "invoice_amount": {
+      "description": "Actual invoice amount for the week",
+      "type": "amount",
+      "aggregation": "SUM",
+      "synonyms": [
+        "invoice",
+        "invoice value",
+        "actual invoice"
+      ]
+    },
+
+    "collection_week": {
+      "description": "Fiscal week when cash collection occurred",
+      "type": "week"
+    },
+
+    "collection_amount": {
+      "description": "Actual cash collection amount for the week",
+      "type": "amount",
+      "aggregation": "SUM",
+      "synonyms": [
+        "collection",
+        "cash",
+        "cash collection",
+        "actual collection"
+      ]
+    }
+  },
+
+  "booking_to_invoice_forecasting": {
+    "booking_week": {
+      "description": "Source booking week used for booking-to-invoice forecasting",
+      "type": "week"
+    },
+
+    "booking_amount": {
+      "description": "Booking amount used as input for invoice forecasting",
+      "type": "amount",
+      "aggregation": "SUM"
+    },
+
+    "forecasted_invoice": {
+      "description": "Final weekly forecasted invoice amount after waterfall logic",
+      "type": "amount",
+      "aggregation": "SUM",
+      "synonyms": [
+        "forecast invoice",
+        "forecasted invoice",
+        "invoice forecast"
+      ]
+    },
+
+    "lag_0": {
+      "description": "Booking-to-invoice linearity for the same booking week"
+    },
+
+    "lag_1": {
+      "description": "Booking-to-invoice linearity one week after booking"
+    },
+
+    "lag_2": {
+      "description": "Booking-to-invoice linearity two weeks after booking"
+    },
+
+    "lag_3": {
+      "description": "Booking-to-invoice linearity three weeks after booking"
+    },
+
+    "lag_4": {
+      "description": "Booking-to-invoice linearity four weeks after booking"
+    },
+
+    "lag_5": {
+      "description": "Booking-to-invoice linearity five weeks after booking"
+    },
+
+    "lag_6": {
+      "description": "Booking-to-invoice linearity six weeks after booking"
+    },
+
+    "lag_7": {
+      "description": "Booking-to-invoice linearity seven weeks after booking"
+    },
+
+    "lag_8": {
+      "description": "Booking-to-invoice linearity eight weeks after booking"
+    },
+
+    "lag_9": {
+      "description": "Booking-to-invoice linearity nine weeks after booking"
+    },
+
+    "lag_10": {
+      "description": "Booking-to-invoice linearity ten weeks after booking"
+    }
+  },
+
+  "invoice_to_cash_forecasting": {
+    "invoice_week": {
+      "description": "Source invoice week used for invoice-to-cash forecasting",
+      "type": "week"
+    },
+
+    "invoice_amount": {
+      "description": "Invoice amount used as input for collection forecasting",
+      "type": "amount",
+      "aggregation": "SUM"
+    },
+
+    "forecasted_collection": {
+      "description": "Final weekly forecasted collection amount after waterfall logic",
+      "type": "amount",
+      "aggregation": "SUM",
+      "synonyms": [
+        "forecast collection",
+        "forecasted collection",
+        "cash forecast",
+        "collection forecast"
+      ]
+    },
+
+    "lag_0": {
+      "description": "Invoice-to-cash linearity for the same invoice week"
+    },
+
+    "lag_1": {
+      "description": "Invoice-to-cash linearity one week after invoice"
+    },
+
+    "lag_2": {
+      "description": "Invoice-to-cash linearity two weeks after invoice"
+    },
+
+    "lag_3": {
+      "description": "Invoice-to-cash linearity three weeks after invoice"
+    },
+
+    "lag_4": {
+      "description": "Invoice-to-cash linearity four weeks after invoice"
+    },
+
+    "lag_5": {
+      "description": "Invoice-to-cash linearity five weeks after invoice"
+    },
+
+    "lag_6": {
+      "description": "Invoice-to-cash linearity six weeks after invoice"
+    },
+
+    "lag_7": {
+      "description": "Invoice-to-cash linearity seven weeks after invoice"
+    },
+
+    "lag_8": {
+      "description": "Invoice-to-cash linearity eight weeks after invoice"
+    },
+
+    "lag_9": {
+      "description": "Invoice-to-cash linearity nine weeks after invoice"
+    },
+
+    "lag_10": {
+      "description": "Invoice-to-cash linearity ten weeks after invoice"
+    }
+  }
+}

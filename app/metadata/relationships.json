@@ -1,0 +1,17 @@
+{
+  "actual_to_invoice_forecast": {
+    "actual_table": "actual_booking_invoices_collection",
+    "forecast_table": "booking_to_invoice_forecasting",
+    "actual_week_column": "invoice_week",
+    "forecast_week_column": "booking_week",
+    "purpose": "Used when comparing actual invoice with forecasted invoice by week."
+  },
+
+  "actual_to_collection_forecast": {
+    "actual_table": "actual_booking_invoices_collection",
+    "forecast_table": "invoice_to_cash_forecasting",
+    "actual_week_column": "collection_week",
+    "forecast_week_column": "invoice_week",
+    "purpose": "Used when comparing actual collection with forecasted collection by week."
+  }
+}
