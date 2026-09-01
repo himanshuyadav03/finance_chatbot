@@ -8,6 +8,15 @@ def build_sql_prompt(question: str, metadata: dict) -> str:
         indent=2
     )
 
+    examples = metadata.get("sql_examples", {}).get("examples", [])
+
+    examples_text = "\n\n".join(
+        [
+            f"Question: {item['question']}\nSQL: {item['sql']}"
+            for item in examples
+        ]
+    )
+
     return f"""
 You are an expert PostgreSQL SQL generator for a finance chatbot.
 
@@ -19,6 +28,17 @@ DATABASE METADATA
 ========================
 
 {metadata_text}
+
+
+========================
+EXAMPLE QUESTIONS AND SQL
+========================
+
+{examples_text}
+
+Use the examples as guidance.
+Do not blindly copy years, weeks, quarters, tables, or filters.
+
 
 ========================
 CORE RULES
