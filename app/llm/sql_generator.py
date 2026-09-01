@@ -1,9 +1,10 @@
 from app.llm.client import client
-from app.metadata.loader import load_all_metadata
+from app.llm.models import SQLGenerationResult
 from app.llm.prompts import build_sql_prompt
+from app.metadata.loader import load_all_metadata
 
 
-def generate_sql(question: str):
+def generate_sql(question: str) -> SQLGenerationResult:
 
     metadata = load_all_metadata()
 
@@ -12,11 +13,10 @@ def generate_sql(question: str):
         metadata=metadata
     )
 
-    response = client.responses.create(
+    response = client.responses.parse(
         model="gpt-5-mini",
-        input=prompt
+        input=prompt,
+        text_format=SQLGenerationResult
     )
 
-    sql = response.output_text.strip()
-
-    return sql
+    return response.output_parsed

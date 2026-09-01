@@ -171,14 +171,30 @@ When the user asks for weekly results,
 return the week column and amount column.
 
 ========================
-OUTPUT RULE
+OUTPUT REQUIREMENTS
 ========================
 
-Return only the PostgreSQL SQL query.
+Return structured information containing:
 
-Do not use markdown.
-Do not use ```sql.
-Do not explain the SQL.
+sql:
+The PostgreSQL SELECT query.
+
+table:
+The primary database table used by the query.
+
+query_type:
+Classify the question as one of:
+
+- actual_booking
+- actual_invoice
+- actual_collection
+- forecasted_invoice
+- forecasted_collection
+- booking_to_invoice_linearity
+- invoice_to_cash_linearity
+
+explanation:
+A short explanation of what the SQL query calculates.
 
 ========================
 USER QUESTION

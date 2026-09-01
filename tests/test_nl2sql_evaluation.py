@@ -78,7 +78,9 @@ def run_evaluation():
         print(f"Test {i}")
         print("Question:", question)
 
-        sql = generate_sql(question)
+        result = generate_sql(question)
+
+        sql = result.sql
 
         print("\nGenerated SQL:")
         print(sql)
