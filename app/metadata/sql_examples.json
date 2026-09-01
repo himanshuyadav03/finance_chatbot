@@ -1,0 +1,36 @@
+{
+  "examples": [
+    {
+      "question": "What was total booking in 2025Q1?",
+      "sql": "SELECT SUM(booking_amount) AS total_booking FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk01' AND '2025Wk13';"
+    },
+    {
+      "question": "What was total invoice in 2025Q2?",
+      "sql": "SELECT SUM(invoice_amount) AS total_invoice FROM actual_booking_invoices_collection WHERE invoice_week BETWEEN '2025Wk14' AND '2025Wk26';"
+    },
+    {
+      "question": "What was total collection in 2025Q3?",
+      "sql": "SELECT SUM(collection_amount) AS total_collection FROM actual_booking_invoices_collection WHERE collection_week BETWEEN '2025Wk27' AND '2025Wk39';"
+    },
+    {
+      "question": "What was booking in 2025Wk05?",
+      "sql": "SELECT SUM(booking_amount) AS total_booking FROM actual_booking_invoices_collection WHERE booking_week = '2025Wk05';"
+    },
+    {
+      "question": "What is total forecasted invoice for 2025Q1?",
+      "sql": "SELECT SUM(forecasted_invoice) AS total_forecasted_invoice FROM booking_to_invoice_forecasting WHERE booking_week BETWEEN '2025Wk01' AND '2025Wk13';"
+    },
+    {
+      "question": "What is forecasted collection for 2025Wk10?",
+      "sql": "SELECT SUM(forecasted_collection) AS total_forecasted_collection FROM invoice_to_cash_forecasting WHERE invoice_week = '2025Wk10';"
+    },
+    {
+      "question": "What percentage of booking is invoiced within 3 weeks?",
+      "sql": "SELECT AVG(lag_0 + lag_1 + lag_2 + lag_3) * 100 AS invoice_within_3_weeks_percentage FROM booking_to_invoice_forecasting;"
+    },
+    {
+      "question": "What percentage of invoice is collected within 5 weeks?",
+      "sql": "SELECT AVG(lag_0 + lag_1 + lag_2 + lag_3 + lag_4 + lag_5) * 100 AS collection_within_5_weeks_percentage FROM invoice_to_cash_forecasting;"
+    }
+  ]
+}

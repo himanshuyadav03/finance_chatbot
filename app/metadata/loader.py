@@ -17,7 +17,8 @@ def load_all_metadata():
         "columns": load_json("columns.json"),
         "business_rules": load_json("business_rules.json"),
         "relationships": load_json("relationships.json"),
-        "fiscal_calendar": load_json("fiscal_calendar.json")
+        "fiscal_calendar": load_json("fiscal_calendar.json"),
+        "sql_examples": load_json("sql_examples.json")
 
     }
 
