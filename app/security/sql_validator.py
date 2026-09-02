@@ -17,6 +17,54 @@ ALLOWED_TABLES = {
 }
 
 
+ALLOWED_COLUMNS = {
+    "actual_booking_invoices_collection": {
+        "id",
+        "booking_week",
+        "booking_amount",
+        "invoice_week",
+        "invoice_amount",
+        "collection_week",
+        "collection_amount",
+    },
+
+    "booking_to_invoice_forecasting": {
+        "id",
+        "booking_week",
+        "lag_0",
+        "lag_1",
+        "lag_2",
+        "lag_3",
+        "lag_4",
+        "lag_5",
+        "lag_6",
+        "lag_7",
+        "lag_8",
+        "lag_9",
+        "lag_10",
+        "booking_amount",
+        "forecasted_invoice",
+    },
+
+    "invoice_to_cash_forecasting": {
+        "id",
+        "invoice_week",
+        "lag_0",
+        "lag_1",
+        "lag_2",
+        "lag_3",
+        "lag_4",
+        "lag_5",
+        "lag_6",
+        "lag_7",
+        "lag_8",
+        "lag_9",
+        "lag_10",
+        "invoice_amount",
+        "forecasted_collection",
+    },
+}
+
 BLOCKED_OPERATIONS = (
     exp.Insert,
     exp.Update,
@@ -63,25 +111,49 @@ def validate_sql(sql: str) -> ValidationResult:
                 error=f"{operation.__name__} operation is not allowed."
             )
 
-    # Only SELECT-style queries
+    # Only SELECT queries are allowed
     if not isinstance(statement, exp.Select):
         return ValidationResult(
             is_valid=False,
             error="Only SELECT queries are allowed."
         )
 
-    # Check tables
+    # Extract tables
     tables = {
         table.name
         for table in statement.find_all(exp.Table)
     }
 
+    # Extract columns
+    columns = {
+        column.name
+        for column in statement.find_all(exp.Column)
+    }
+
+    # Validate tables
     unknown_tables = tables - ALLOWED_TABLES
 
     if unknown_tables:
         return ValidationResult(
             is_valid=False,
-            error=f"Unknown table(s): {', '.join(unknown_tables)}"
+            error=f"Unknown table(s): {', '.join(sorted(unknown_tables))}"
         )
+
+    # Validate columns
+    if len(tables) == 1:
+        table_name = next(iter(tables))
+
+        allowed_columns = ALLOWED_COLUMNS[table_name]
+
+        unknown_columns = columns - allowed_columns
+
+        if unknown_columns:
+            return ValidationResult(
+                is_valid=False,
+                error=(
+                    "Unknown column(s): "
+                    + ", ".join(sorted(unknown_columns))
+                )
+            )
 
     return ValidationResult(is_valid=True)
