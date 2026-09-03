@@ -2,7 +2,7 @@ from app.llm.answer_generator import generate_answer
 from app.llm.sql_generator import generate_sql
 from app.security.sql_validator import validate_question
 from app.services.query_service import execute_safe_query
-from app.services.capability_service import SUPPORTED_CAPABILITIES
+from app.services.capability_service import is_capability_supported
 
 def ask_finance_question(question: str):
 
@@ -15,18 +15,13 @@ def ask_finance_question(question: str):
 
     generated = generate_sql(question)
 
-    query_type = generated.query_type
-
-    is_supported = SUPPORTED_CAPABILITIES.get(
-     query_type,
-        False
-    )
-
-    if not is_supported:
+    if not is_capability_supported(
+        generated.query_type
+    ):
         return {
             "question": question,
             "sql": None,
-            "query_type": query_type,
+            "query_type": generated.query_type,
             "data": [],
             "answer": (
                 "This question is not supported by the currently available data."
@@ -36,6 +31,15 @@ def ask_finance_question(question: str):
     result = execute_safe_query(
         generated.sql
     )
+
+    if not has_data(result):
+        return {
+            "question": question,
+            "sql": generated.sql,
+            "query_type": generated.query_type,
+            "data": result,
+            "answer": "No data was found for the requested period."
+        }
 
     answer = generate_answer(
         question=question,
