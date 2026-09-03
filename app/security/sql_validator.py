@@ -4,6 +4,27 @@ import sqlglot
 from sqlglot import exp
 
 
+
+@dataclass
+class QuestionValidationResult:
+    is_valid: bool
+    error: str | None = None
+
+
+BLOCKED_INTENTS = {
+    "delete",
+    "remove",
+    "drop",
+    "truncate",
+    "update",
+    "insert",
+    "create",
+    "alter",
+    "grant",
+    "revoke",
+}
+
+
 @dataclass
 class ValidationResult:
     is_valid: bool
@@ -73,6 +94,30 @@ BLOCKED_OPERATIONS = (
     exp.Create,
     exp.Alter,
 )
+
+
+def validate_question(question: str) -> QuestionValidationResult:
+
+    if not question or not question.strip():
+        return QuestionValidationResult(
+            is_valid=False,
+            error="Question cannot be empty."
+        )
+
+    question_lower = question.lower()
+
+    for word in BLOCKED_INTENTS:
+
+        if word in question_lower:
+            return QuestionValidationResult(
+                is_valid=False,
+                error=(
+                    "This chatbot supports read-only finance questions. "
+                    "Data modification requests are not allowed."
+                )
+            )
+
+    return QuestionValidationResult(is_valid=True)
 
 
 def validate_sql(sql: str) -> ValidationResult:

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.api.routes import router
 
 app = FastAPI(
     title="Finance Data Chatbot API",
@@ -6,6 +7,8 @@ app = FastAPI(
     version="0.1.0"
 )
 
+
+app.include_router(router)
 
 @app.get("/")
 def root():
