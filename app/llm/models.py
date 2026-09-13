@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import BaseModel
 
 
@@ -6,3 +8,8 @@ class SQLGenerationResult(BaseModel):
     table: str
     query_type: str
     explanation: str
+    response_type: Literal[
+        "text",
+        "table",
+        "chart"
+    ]

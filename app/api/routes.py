@@ -23,9 +23,10 @@ def ask_question(request: AskRequest):
             "question": result["question"],
             "answer": result["answer"],
             "query_type": result["query_type"],
+            "response_type": result["response_type"],
             "data": result["data"],
-        }
-
+            "chart": result["chart"],
+}
     except ValueError as e:
 
         raise HTTPException(
@@ -38,7 +39,8 @@ def ask_question(request: AskRequest):
             detail="Database query failed."
         )
     except Exception as e:
+        print("FULL EROOR:", repr(e))
         raise HTTPException(
             status_code=500,
-            detail="Unable to process the question."
+            detail=str(e)
         )

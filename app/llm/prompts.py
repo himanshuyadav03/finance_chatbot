@@ -203,4 +203,20 @@ Classify the question as one of:
 
 explanation:
 A short explanation of what the SQL query calculates.
+
+response_type:
+Choose exactly one:
+
+- text
+- table
+- chart
+
+Choose "text" when the result is a single value,
+total, percentage, or simple factual answer.
+
+Choose "table" when the user asks to show,
+list, break down, compare, or return multiple rows.
+
+Choose "chart" only when the user explicitly asks
+to plot, chart, graph, visualize, or show a trend visually.
 """

@@ -5,6 +5,8 @@ from app.security.sql_validator import validate_question
 
 from app.services.query_service import execute_safe_query
 from app.services.capability_service import is_capability_supported
+from app.services.response_service import build_chart_config
+
 from app.services.conversation_service import (
     add_message,
     get_conversation,
@@ -59,10 +61,11 @@ def ask_finance_question(
 
         return {
             "question": question,
-            "sql": None,
+            "answer": "This type of question is currently not supported.",
             "query_type": generated.query_type,
+            "response_type": "text",
             "data": [],
-            "answer": answer
+            "chart": None
         }
 
     # 5. Execute validated SQL
@@ -91,10 +94,11 @@ def ask_finance_question(
 
         return {
             "question": question,
-            "sql": generated.sql,
+            "answer": "No data was found for the requested period.",
             "query_type": generated.query_type,
-            "data": result,
-            "answer": answer
+            "response_type": "text",
+            "data": [],
+            "chart": None
         }
 
     # 7. Generate readable answer
@@ -103,6 +107,13 @@ def ask_finance_question(
         sql=generated.sql,
         result=result
     )
+    chart = None 
+
+    if generated.response_type == "chart":  
+        chart = build_chart_config(
+            data=result,
+            query_type=generated.query_type
+        )
 
     # 8. Store conversation
     add_message(
@@ -117,13 +128,16 @@ def ask_finance_question(
         content=answer
     )
 
+    
+
     # 9. Return API response
     return {
         "question": question,
-        "sql": generated.sql,
+        "answer": answer,
         "query_type": generated.query_type,
+        "response_type": generated.response_type,
         "data": result,
-        "answer": answer
+        "chart": chart
     }
 
 
