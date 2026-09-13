@@ -1,20 +1,18 @@
-import json
+def build_sql_prompt(
+    question: str,
+    retrieved_context: list[str],
+    conversation_history: list | None = None
+) -> str:
 
-
-def build_sql_prompt(question: str, metadata: dict) -> str:
-
-    metadata_text = json.dumps(
-        metadata,
-        indent=2
+    retrieved_text = "\n\n".join(
+        retrieved_context
     )
 
-    examples = metadata.get("sql_examples", {}).get("examples", [])
+    conversation_history = conversation_history or []
 
-    examples_text = "\n\n".join(
-        [
-            f"Question: {item['question']}\nSQL: {item['sql']}"
-            for item in examples
-        ]
+    history_text = "\n".join(
+        f"{item['role']}: {item['content']}"
+        for item in conversation_history[-6:]
     )
 
     return f"""
@@ -24,21 +22,12 @@ Your only task is to convert the user's finance question into
 one valid PostgreSQL SELECT query.
 
 ========================
-DATABASE METADATA
+RELEVANT DATABASE CONTEXT
 ========================
 
-{metadata_text}
+{retrieved_text}
 
-
-========================
-EXAMPLE QUESTIONS AND SQL
-========================
-
-{examples_text}
-
-Use the examples as guidance.
-Do not blindly copy years, weeks, quarters, tables, or filters.
-
+Use only the relevant database context provided above.
 
 ========================
 CORE RULES
@@ -56,7 +45,7 @@ CORE RULES
    CREATE
    GRANT
 
-3. Use only tables and columns defined in DATABASE METADATA.
+3. Use only tables and columns present in the provided database context.
 
 4. Do not invent tables or columns.
 
@@ -80,28 +69,6 @@ For actual collection:
 - Time column: collection_week
 
 ========================
-FORECAST RULES
-========================
-
-For forecasted invoice:
-- Table: booking_to_invoice_forecasting
-- Column: forecasted_invoice
-
-forecasted_invoice is already the final weekly forecast
-after waterfall logic.
-
-Do NOT recalculate it using booking_amount and lag columns.
-
-For forecasted collection:
-- Table: invoice_to_cash_forecasting
-- Column: forecasted_collection
-
-forecasted_collection is already the final weekly forecast
-after waterfall logic.
-
-Do NOT recalculate it using invoice_amount and lag columns.
-
-========================
 LINEARITY RULES
 ========================
 
@@ -115,7 +82,6 @@ Use lag columns only when the user asks about:
 lag_0 means same source week.
 lag_1 means one week after the source week.
 lag_2 means two weeks after the source week.
-And so on.
 
 Lag values are stored as decimals.
 
@@ -171,6 +137,50 @@ When the user asks for weekly results,
 return the week column and amount column.
 
 ========================
+CONVERSATION HISTORY
+========================
+
+{history_text}
+
+========================
+CURRENT QUESTION
+========================
+
+{question}
+
+========================
+FOLLOW-UP RULES
+========================
+
+If the current question is incomplete,
+use the conversation history to resolve the missing context.
+
+Example:
+
+Previous:
+User: What was total booking in 2025Q1?
+
+Current:
+User: What about Q2?
+
+Interpretation:
+What was total booking in 2025Q2?
+
+Another example:
+
+Previous:
+User: What was total collection in 2025Q1?
+
+Current:
+User: And Q3?
+
+Interpretation:
+What was total collection in 2025Q3?
+
+Do not invent context if the conversation history
+does not provide enough information.
+
+========================
 OUTPUT REQUIREMENTS
 ========================
 
@@ -180,7 +190,7 @@ sql:
 The PostgreSQL SELECT query.
 
 table:
-The primary database table used by the query.
+The primary database table used.
 
 query_type:
 Classify the question as one of:
@@ -188,17 +198,9 @@ Classify the question as one of:
 - actual_booking
 - actual_invoice
 - actual_collection
-- forecasted_invoice
-- forecasted_collection
 - booking_to_invoice_linearity
 - invoice_to_cash_linearity
 
 explanation:
 A short explanation of what the SQL query calculates.
-
-========================
-USER QUESTION
-========================
-
-{question}
 """

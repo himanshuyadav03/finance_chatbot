@@ -1,16 +1,23 @@
 from app.llm.client import client
 from app.llm.models import SQLGenerationResult
 from app.llm.prompts import build_sql_prompt
-from app.metadata.loader import load_all_metadata
+from app.rag.retriever import retrieve_metadata
 
 
-def generate_sql(question: str) -> SQLGenerationResult:
+def generate_sql(
+    question: str,
+    conversation_history: list | None = None
+) -> SQLGenerationResult:
 
-    metadata = load_all_metadata()
+    retrieved_context = retrieve_metadata(
+        question=question,
+        top_k=5
+    )
 
     prompt = build_sql_prompt(
         question=question,
-        metadata=metadata
+        retrieved_context=retrieved_context,
+        conversation_history=conversation_history
     )
 
     response = client.responses.parse(

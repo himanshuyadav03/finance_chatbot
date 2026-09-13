@@ -15,7 +15,8 @@ def ask_question(request: AskRequest):
 
     try:
         result = ask_finance_question(
-            request.question
+            question=request.question,
+            session_id=request.session_id
         )
 
         return {

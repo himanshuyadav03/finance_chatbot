@@ -8,6 +8,11 @@ class AskRequest(BaseModel):
         description="Finance question in natural language"
     )
 
+    session_id: str = Field(
+        min_length=1,
+        description="Conversation session identifier"
+    )
+
 class AskResponse(BaseModel):
     question: str
     answer: str
