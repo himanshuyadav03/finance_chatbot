@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "conversation": [
+      "What was total booking in 2025Q1?",
+      "What about Q2?"
+    ],
+    "expected_query_type": "actual_booking",
+    "expected_response_type": "text",
+    "expected_sql": "SELECT SUM(booking_amount) AS total_booking FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk14' AND '2025Wk26';"
+  },
+  {
+    "id": 2,
+    "conversation": [
+      "What was total collection in 2025Q1?",
+      "What about Q3?"
+    ],
+    "expected_query_type": "actual_collection",
+    "expected_response_type": "text",
+    "expected_sql": "SELECT SUM(collection_amount) AS total_collection FROM actual_booking_invoices_collection WHERE collection_week BETWEEN '2025Wk27' AND '2025Wk39';"
+  },
+  {
+    "id": 3,
+    "conversation": [
+      "Show weekly booking for 2025Q1",
+      "Show Q2 instead"
+    ],
+    "expected_query_type": "actual_booking",
+    "expected_response_type": "table",
+    "expected_sql": "SELECT booking_week, booking_amount FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk14' AND '2025Wk26' ORDER BY booking_week;"
+  },
+  {
+    "id": 4,
+    "conversation": [
+      "Show weekly booking for 2025Q1",
+      "Plot Q2 instead"
+    ],
+    "expected_query_type": "actual_booking",
+    "expected_response_type": "chart",
+    "expected_sql": "SELECT booking_week, booking_amount FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk14' AND '2025Wk26' ORDER BY booking_week;"
+  }
+]

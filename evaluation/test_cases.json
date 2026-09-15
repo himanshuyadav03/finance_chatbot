@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "question": "What was total booking in 2025Q1?",
+    "expected_query_type": "actual_booking",
+    "expected_response_type": "text",
+    "expected_sql": "SELECT SUM(booking_amount) AS total_booking FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk01' AND '2025Wk13';"
+  },
+  {
+    "id": 2,
+    "question": "What was total booking in 2025Q2?",
+    "expected_query_type": "actual_booking",
+    "expected_response_type": "text",
+    "expected_sql": "SELECT SUM(booking_amount) AS total_booking FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk14' AND '2025Wk26';"
+  },
+  {
+    "id": 3,
+    "question": "What was total invoice in 2025Q1?",
+    "expected_query_type": "actual_invoice",
+    "expected_response_type": "text",
+    "expected_sql": "SELECT SUM(invoice_amount) AS total_invoice FROM actual_booking_invoices_collection WHERE invoice_week BETWEEN '2025Wk01' AND '2025Wk13';"
+  },
+  {
+    "id": 4,
+    "question": "What was total collection in 2025Q1?",
+    "expected_query_type": "actual_collection",
+    "expected_response_type": "text",
+    "expected_sql": "SELECT SUM(collection_amount) AS total_collection FROM actual_booking_invoices_collection WHERE collection_week BETWEEN '2025Wk01' AND '2025Wk13';"
+  },
+  {
+    "id": 5,
+    "question": "Show weekly booking for 2025Q1",
+    "expected_query_type": "actual_booking",
+    "expected_response_type": "table",
+    "expected_sql": "SELECT booking_week, booking_amount FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk01' AND '2025Wk13' ORDER BY booking_week;"
+  },
+  {
+    "id": 6,
+    "question": "Plot weekly booking for 2025Q1",
+    "expected_query_type": "actual_booking",
+    "expected_response_type": "chart",
+    "expected_sql": "SELECT booking_week, booking_amount FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk01' AND '2025Wk13' ORDER BY booking_week;"
+  },
+  {
+    "id": 7,
+    "question": "Show weekly collection for 2026Q3",
+    "expected_query_type": "actual_collection",
+    "expected_response_type": "table",
+    "expected_sql": "SELECT collection_week, collection_amount FROM actual_booking_invoices_collection WHERE collection_week BETWEEN '2026Wk27' AND '2026Wk39' ORDER BY collection_week;"
+  },
+  {
+    "id": 8,
+    "question": "Plot weekly invoice for 2026Q2",
+    "expected_query_type": "actual_invoice",
+    "expected_response_type": "chart",
+    "expected_sql": "SELECT invoice_week, invoice_amount FROM actual_booking_invoices_collection WHERE invoice_week BETWEEN '2026Wk14' AND '2026Wk26' ORDER BY invoice_week;"
+  }
+]

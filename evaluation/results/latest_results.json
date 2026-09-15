@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "question": "What was total booking in 2025Q1?",
+    "generated_sql": "SELECT SUM(booking_amount) AS total_booking FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk01' AND '2025Wk13';",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 2,
+    "question": "What was total booking in 2025Q2?",
+    "generated_sql": "SELECT SUM(booking_amount) AS total_booking FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk14' AND '2025Wk26';",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 3,
+    "question": "What was total invoice in 2025Q1?",
+    "generated_sql": "SELECT SUM(invoice_amount) AS total_invoice FROM actual_booking_invoices_collection WHERE invoice_week BETWEEN '2025Wk01' AND '2025Wk13';",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 4,
+    "question": "What was total collection in 2025Q1?",
+    "generated_sql": "SELECT SUM(collection_amount) AS total_collection FROM actual_booking_invoices_collection WHERE collection_week BETWEEN '2025Wk01' AND '2025Wk13';",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 5,
+    "question": "Show weekly booking for 2025Q1",
+    "generated_sql": "SELECT booking_week, SUM(booking_amount) AS booking_amount\nFROM actual_booking_invoices_collection\nWHERE booking_week BETWEEN '2025Wk01' AND '2025Wk13'\nGROUP BY booking_week\nORDER BY booking_week;",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 6,
+    "question": "Plot weekly booking for 2025Q1",
+    "generated_sql": "SELECT booking_week, SUM(booking_amount) AS booking_amount\nFROM actual_booking_invoices_collection\nWHERE booking_week BETWEEN '2025Wk01' AND '2025Wk13'\nGROUP BY booking_week\nORDER BY booking_week;",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 7,
+    "question": "Show weekly collection for 2026Q3",
+    "generated_sql": "SELECT collection_week, SUM(collection_amount) AS collection_amount\nFROM actual_booking_invoices_collection\nWHERE collection_week BETWEEN '2026Wk27' AND '2026Wk39'\nGROUP BY collection_week\nORDER BY collection_week;",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 8,
+    "question": "Plot weekly invoice for 2026Q2",
+    "generated_sql": "SELECT invoice_week, SUM(invoice_amount) AS invoice_amount\nFROM actual_booking_invoices_collection\nWHERE invoice_week BETWEEN '2026Wk14' AND '2026Wk26'\nGROUP BY invoice_week\nORDER BY invoice_week;",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  }
+]

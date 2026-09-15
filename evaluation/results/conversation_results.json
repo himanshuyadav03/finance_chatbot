@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "follow_up_question": "What about Q2?",
+    "generated_sql": "SELECT SUM(booking_amount) AS total_booking FROM actual_booking_invoices_collection WHERE booking_week BETWEEN '2025Wk14' AND '2025Wk26';",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 2,
+    "follow_up_question": "What about Q3?",
+    "generated_sql": "SELECT SUM(collection_amount) AS total_collection FROM actual_booking_invoices_collection WHERE collection_week BETWEEN '2025Wk27' AND '2025Wk39';",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 3,
+    "follow_up_question": "Show Q2 instead",
+    "generated_sql": "SELECT booking_week, SUM(booking_amount) AS booking_amount\nFROM actual_booking_invoices_collection\nWHERE booking_week BETWEEN '2025Wk14' AND '2025Wk26'\nGROUP BY booking_week\nORDER BY booking_week;",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": true,
+    "overall_pass": true
+  },
+  {
+    "id": 4,
+    "follow_up_question": "Plot Q2 instead",
+    "generated_sql": "SELECT booking_week AS week, SUM(booking_amount) AS booking_amount\nFROM actual_booking_invoices_collection\nWHERE booking_week BETWEEN '2025Wk14' AND '2025Wk26'\nGROUP BY booking_week\nORDER BY booking_week;",
+    "query_type_pass": true,
+    "response_type_pass": true,
+    "result_pass": false,
+    "overall_pass": false
+  }
+]
