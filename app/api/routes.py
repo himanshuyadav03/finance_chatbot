@@ -39,7 +39,6 @@ def ask_question(request: AskRequest):
             detail="Database query failed."
         )
     except Exception as e:
-        print("FULL EROOR:", repr(e))
         raise HTTPException(
             status_code=500,
             detail=str(e)
